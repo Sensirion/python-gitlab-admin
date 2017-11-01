@@ -1,3 +1,6 @@
 *.pyc
 config.toml
 .idea
+build/
+dist/
+gitlab_admin.egg-info/
