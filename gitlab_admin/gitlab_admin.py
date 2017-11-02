@@ -39,16 +39,23 @@ def apply_protected_branches(project, protected_branches, dry_run):
         else:
             debug("protected branch exists: {}".format(branch))
             attributes = branch.attributes
-            if attributes['merge_access_levels'] == protected_branch['merge_access_levels'] and \
-               attributes['push_access_levels'] == protected_branch['push_access_levels']:
+            if (len(attributes['merge_access_levels']) == 1 and
+                    attributes['merge_access_levels'][0]['access_level'] == protected_branch['merge_access_level'] and
+                    len(attributes['push_access_levels']) == 1 and
+                    attributes['push_access_levels'][0]['access_level'] == protected_branch['push_access_level']):
+                debug("settings are equal")
                 continue
             if not dry_run:
                 # need to remove first to change settings
+                info("Remove branch protection for {}".format(protected_branch['name']))
                 project.protectedbranches.delete(protected_branch['name'])
-        if dry_run:
-            print("{}: would protect branch: {}".format(project.path_with_namespace, protected_branch['name']))
-        else:
-            project.protectedbranches.create(protected_branch)
+        print("{}: change: protect branch: {}".format(project.path_with_namespace, protected_branch['name']))
+        debug("{}".format(protected_branch))
+        if not dry_run:
+            project.protectedbranches.create(
+                    {'name': protected_branch['name']},
+                    push_access_level=protected_branch['push_access_level'],
+                    merge_access_level=protected_branch['merge_access_level'])
 
 
 def apply_rules(project, config, dry_run=True):
