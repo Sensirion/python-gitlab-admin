@@ -3,7 +3,7 @@
 # vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4
 """GitLab provisioning script
 Usage:
-    gitlab_admin [options]
+    gitlab_admin [(-v ...)] [options]
     gitlab_admin (-h | --help)
 
 Options:
@@ -14,11 +14,13 @@ Options:
     -g, --group GITLAB_GROUP     GitLab group to work on
     --host GITLAB_HOST           GitLab hostname
     -c, --config CONFIG_FILE     configuration file [default: config.toml]
+    -v, --verbose                Enable debug messages, may be passed multiple times
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals 
+from __future__ import absolute_import, division, print_function, unicode_literals
 import os
-from logging import debug
+import logging
+from logging import debug, info
 
 import gitlab
 import toml
@@ -76,6 +78,8 @@ def main():
     gitlab_host = arguments.get('--host')
     gitlab_server = arguments.get('--server')
     dry_run = arguments.get('--dry-run')
+    verbose = arguments.get('--verbose')
+    logging.basicConfig(level=(50 - verbose*10))
 
     config = toml.load(gitlab_config)
 
