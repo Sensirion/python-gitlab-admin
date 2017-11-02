@@ -1,0 +1,24 @@
+[gitlab_admin]
+default_server = "staging"
+default_group = "ExampleGroup"
+
+[servers]
+
+  [servers.staging]
+  host = "gitlab-staging.example.com"
+  token = "xxxxxxxxxxxxxxxxxxxx"
+
+  [servers.production]
+  host = "gitlab-production.example.com"
+  token = "xxxxxxxxxxxxxxxxxxxx"
+
+[rules]
+    [[rules.protected-branches]]
+    name = "master"
+    push_access_levels = [{access_level = 40, access_level_description = "Masters"}]
+    merge_access_levels = [{access_level = 30, access_level_description = "Developers + Masters"}]
+
+    [[rules.protected-branches]]
+    name = "deploy"
+    push_access_levels = [{access_level = 0, access_level_description = "No one"}]
+    merge_access_levels = [{access_level = 40, access_level_description = "Masters"}]
