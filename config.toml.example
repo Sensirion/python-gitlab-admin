@@ -15,10 +15,10 @@ default_group = "ExampleGroup"
 [rules]
     [[rules.protected-branches]]
     name = "master"
-    push_access_levels = [{access_level = 40, access_level_description = "Masters"}]
-    merge_access_levels = [{access_level = 30, access_level_description = "Developers + Masters"}]
+    push_access_level = 40 # Masters
+    merge_access_level = 30 # Developers + Masters
 
     [[rules.protected-branches]]
     name = "deploy"
-    push_access_levels = [{access_level = 0, access_level_description = "No one"}]
-    merge_access_levels = [{access_level = 40, access_level_description = "Masters"}]
+    push_access_level = 0 # No one
+    merge_access_level = 40 # Masters
