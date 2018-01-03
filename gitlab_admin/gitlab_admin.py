@@ -103,7 +103,7 @@ def main():
     assert gitlab_token, "GITLAB_TOKEN not defined, export an ENV var or pass command line argument"
     assert gitlab_group, "GITLAB_GROUP not defined, export an ENV var or pass command line argument"
 
-    gl = gitlab.Gitlab('https://' + gitlab_host, gitlab_token, api_version=4, ssl_verify=SSL_VERIFY)
+    gl = gitlab.Gitlab(gitlab_host, gitlab_token, api_version=4, ssl_verify=SSL_VERIFY)
     group = gl.groups.get(gitlab_group)
     all_groups = gl.groups.list(all=True)
     sub_groups = recurse_subgroups(all_groups, group)

@@ -5,11 +5,11 @@ default_group = "ExampleGroup"
 [servers]
 
   [servers.staging]
-  host = "gitlab-staging.example.com"
+  host = "http://gitlab-staging.example.com:8080"
   token = "xxxxxxxxxxxxxxxxxxxx"
 
   [servers.production]
-  host = "gitlab-production.example.com"
+  host = "https://gitlab-production.example.com"
   token = "xxxxxxxxxxxxxxxxxxxx"
 
 [rules]
